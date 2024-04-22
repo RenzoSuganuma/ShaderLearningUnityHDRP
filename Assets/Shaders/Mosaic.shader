@@ -41,6 +41,7 @@ Shader "Hidden/Shader/Mosaic"
 
     // List of properties to control your post process effect
     float _Intensity;
+    int _TileSize;
     TEXTURE2D_X(_MainTex);
     SAMPLER(sampler_MainTex);
 
@@ -53,9 +54,7 @@ Shader "Hidden/Shader/Mosaic"
                                                 ClampAndScaleUVForBilinearPostProcessTexture(input.texcoord.xy)).xyz;
         float3 outColor = float3(1, 0, 0);
 
-        uint tilesize = 50;
-
-        float2 mosaic = floor(input.texcoord * tilesize) / tilesize;
+        float2 mosaic = floor(input.texcoord * _TileSize) / _TileSize;
 
         outColor = _MainTex.Sample(s_linear_clamp_sampler, float3(mosaic, 0)).xyz;
 

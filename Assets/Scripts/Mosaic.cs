@@ -9,6 +9,8 @@ public sealed class Mosaic : CustomPostProcessVolumeComponent, IPostProcessCompo
     [Tooltip("Controls the intensity of the effect.")]
     public ClampedFloatParameter intensity = new ClampedFloatParameter(0f, 0f, 1f);
 
+    [Tooltip("Controls the Tile size")] public ClampedIntParameter tilesize = new ClampedIntParameter(0, 0, 100);
+
     Material m_Material;
 
     public bool IsActive() => m_Material != null && intensity.value > 0f;
@@ -32,6 +34,7 @@ public sealed class Mosaic : CustomPostProcessVolumeComponent, IPostProcessCompo
             return;
 
         m_Material.SetFloat("_Intensity", intensity.value);
+        m_Material.SetFloat("_TileSize", tilesize.value);
         m_Material.SetTexture("_MainTex", source);
         HDUtils.DrawFullScreen(cmd, m_Material, destination, shaderPassId: 0);
     }
