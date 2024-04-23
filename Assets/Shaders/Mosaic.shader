@@ -40,7 +40,6 @@ Shader "Hidden/Shader/Mosaic"
     }
 
     // List of properties to control your post process effect
-    float _Intensity;
     int _TileSize;
     TEXTURE2D_X(_MainTex);
     SAMPLER(sampler_MainTex);
@@ -58,7 +57,7 @@ Shader "Hidden/Shader/Mosaic"
 
         outColor = _MainTex.Sample(s_linear_clamp_sampler, float3(mosaic, 0)).xyz;
 
-        return float4(outColor, _Intensity);
+        return float4(outColor, 1);
     }
     ENDHLSL
 
